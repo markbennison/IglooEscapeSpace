@@ -7,8 +7,14 @@ public class GameManager : MonoBehaviour
     public GameObject viewScreen;
     public GameObject lights;
 
-    // Start is called before the first frame update
-    void Start()
+    public SmartSpeakerController smartSpeaker;
+
+    bool lightsOn = false;
+    bool muteSpeaker = false;
+	bool powerOn = false;
+
+	// Start is called before the first frame update
+	void Start()
     {
         
     }
@@ -28,17 +34,60 @@ public class GameManager : MonoBehaviour
             viewScreen.GetComponent<ViewerControl>().Close();
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3))
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            Debug.Log("3");
-            lights.SetActive(true);
-        }
+			if (lightsOn)
+            {
+                lightsOn = false;
+				lights.SetActive(false);
+				smartSpeaker.VoiceLights(false);
 
-        if (Input.GetKeyDown(KeyCode.Alpha4) || Input.GetKeyDown(KeyCode.Keypad4))
-        {
-            Debug.Log("4");
-            lights.SetActive(false);
-        }
-    }
+			}
+            else
+            {
+				lightsOn = true;
+				lights.SetActive(true);
+				smartSpeaker.VoiceLights(true);
+			}
+
+			Debug.Log("L: Lights " + lightsOn);
+		}
+
+		if (Input.GetKeyDown(KeyCode.M))
+		{
+			if (muteSpeaker)
+			{
+				muteSpeaker = false;
+				smartSpeaker.SpeakerSwitch(true);
+			}
+			else
+			{
+				muteSpeaker = true;
+				smartSpeaker.SpeakerSwitch(false);
+			}
+
+			Debug.Log("M: Mute Speaker " + muteSpeaker);
+		}
+
+		if (Input.GetKeyDown(KeyCode.P))
+		{
+			if (powerOn)
+			{
+				powerOn = false;
+				lights.SetActive(false);
+				smartSpeaker.VoicePower(false);
+				viewScreen.GetComponent<ViewerControl>().Close();
+			}
+			else
+			{
+				powerOn = true;
+				lights.SetActive(true);
+				viewScreen.GetComponent<ViewerControl>().Open();
+				smartSpeaker.VoicePower(true);
+			}
+
+			Debug.Log("L: Lights " + lightsOn);
+		}
+	}
 
 }
