@@ -88,6 +88,12 @@ public class GameManager : MonoBehaviour
 
 			Debug.Log("L: Lights " + lightsOn);
 		}
+
+		if (Input.GetKeyDown(KeyCode.Slash) || Input.GetKeyDown(KeyCode.Question))
+		{
+			//smartSpeaker.VoiceDifficultyUnderstanding();
+			smartSpeaker.VoiceDontKnow();
+		}
 	}
 
 }
