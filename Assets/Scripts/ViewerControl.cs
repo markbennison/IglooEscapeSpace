@@ -61,8 +61,6 @@ public class ViewerControl : MonoBehaviour
             openCloseSpeed = 0f;
         }
 
-        Debug.Log(opening);
-
         if (opening != tempOpening)
         {
             ViewerChange();

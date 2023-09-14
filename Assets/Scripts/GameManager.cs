@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject lights;
 
     public SmartSpeakerController smartSpeaker;
+    public CanisterGauge oxygenCanister;
 
     bool lightsOn = false;
     bool muteSpeaker = false;
@@ -16,19 +17,25 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField]
 	float activityMinutes = 15f;
+	float activitySeconds;
 	float timeCounter = 0f;
+	float timeNormalised;
 
 
 	// Start is called before the first frame update
 	void Start()
     {
-		timeCounter = activityMinutes * 60f;
+		activitySeconds = activityMinutes * 60f;
+        timeCounter = activitySeconds;
     }
 
     // Update is called once per frame
     void Update()
     {
 		timeCounter -= Time.deltaTime;
+		timeNormalised = timeCounter / activitySeconds;
+
+        oxygenCanister.SetGauge(timeNormalised);
 
         if (timeCounter <= 0)
         {
