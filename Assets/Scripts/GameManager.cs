@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,16 +14,29 @@ public class GameManager : MonoBehaviour
     bool muteSpeaker = false;
 	bool powerOn = false;
 
+	[SerializeField]
+	float activityMinutes = 15f;
+	float timeCounter = 0f;
+
+
 	// Start is called before the first frame update
 	void Start()
     {
-        
+		timeCounter = activityMinutes * 60f;
     }
 
     // Update is called once per frame
     void Update()
     {
-		if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
+		timeCounter -= Time.deltaTime;
+
+        if (timeCounter <= 0)
+        {
+			timeCounter = 0f;
+			SceneManager.LoadScene("Dead");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
         {
             Debug.Log("1");
             viewScreen.GetComponent<ViewerControl>().Open();
