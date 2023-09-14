@@ -31,8 +31,6 @@ public class CanisterGauge : MonoBehaviour
         float yPosition = startingPosition.y - (1 - yScale);
         Vector3 setPosition = new Vector3(startingPosition.x, yPosition, startingPosition.z);
         
-        Debug.Log("*** " + setScale.y);
-        
         GaugeMeasure.transform.localScale = setScale;
         GaugeMeasure.transform.localPosition = setPosition;
     }

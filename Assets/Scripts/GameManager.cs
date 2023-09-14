@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public SmartSpeakerController smartSpeaker;
     public CanisterGauge oxygenCanister;
 
+    [SerializeField] AudioSource heartBeatAudio;
+
     bool lightsOn = false;
     bool muteSpeaker = false;
 	bool powerOn = false;
@@ -21,12 +23,24 @@ public class GameManager : MonoBehaviour
 	float timeCounter = 0f;
 	float timeNormalised;
 
+	float heartBeatFrequencyStart = 2f;
+    float heartBeatFrequencyEnd = 0.7f;
+    float heartBeatFrequencyCurrent;
 
-	// Start is called before the first frame update
-	void Start()
+    float heartBeatPitchStart = 0.6f;
+    float heartBeatPitchEnd = 1f;
+    float heartBeatPitchCurrent;
+
+    float heartBeatVolumeStart = 0.05f;
+    float heartBeatVolumeEnd = 1f;
+    float heartBeatVolumeCurrent;
+
+    // Start is called before the first frame update
+    void Start()
     {
 		activitySeconds = activityMinutes * 60f;
         timeCounter = activitySeconds;
+        heartBeatFrequencyCurrent = heartBeatFrequencyStart;
     }
 
     // Update is called once per frame
@@ -43,6 +57,31 @@ public class GameManager : MonoBehaviour
 			SceneManager.LoadScene("Dead");
         }
 
+        KeyInputs();
+
+        heartBeatFrequencyCurrent -= Time.deltaTime;
+        if (heartBeatFrequencyCurrent <= 0f)
+        {
+            HeartBeat();
+        }
+
+    }
+
+    void HeartBeat()
+    {
+        heartBeatFrequencyCurrent = Mathf.Lerp(heartBeatFrequencyEnd, heartBeatFrequencyStart, timeNormalised);
+        heartBeatPitchCurrent = Mathf.Lerp(heartBeatPitchEnd, heartBeatPitchStart, timeNormalised);
+        heartBeatVolumeCurrent = Mathf.Lerp(heartBeatVolumeEnd, heartBeatVolumeStart, timeNormalised);
+
+        heartBeatAudio.pitch = heartBeatPitchCurrent;
+        heartBeatAudio.volume = heartBeatVolumeCurrent;
+
+        heartBeatAudio.Play();
+    }
+
+	void KeyInputs()
+	{
+
         if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
         {
             Debug.Log("1");
@@ -57,63 +96,63 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-			if (lightsOn)
+            if (lightsOn)
             {
                 lightsOn = false;
-				lights.SetActive(false);
-				smartSpeaker.VoiceLights(false);
+                lights.SetActive(false);
+                smartSpeaker.VoiceLights(false);
 
-			}
+            }
             else
             {
-				lightsOn = true;
-				lights.SetActive(true);
-				smartSpeaker.VoiceLights(true);
-			}
+                lightsOn = true;
+                lights.SetActive(true);
+                smartSpeaker.VoiceLights(true);
+            }
 
-			Debug.Log("L: Lights " + lightsOn);
-		}
+            Debug.Log("L: Lights " + lightsOn);
+        }
 
-		if (Input.GetKeyDown(KeyCode.M))
-		{
-			if (muteSpeaker)
-			{
-				muteSpeaker = false;
-				smartSpeaker.SpeakerSwitch(true);
-			}
-			else
-			{
-				muteSpeaker = true;
-				smartSpeaker.SpeakerSwitch(false);
-			}
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (muteSpeaker)
+            {
+                muteSpeaker = false;
+                smartSpeaker.SpeakerSwitch(true);
+            }
+            else
+            {
+                muteSpeaker = true;
+                smartSpeaker.SpeakerSwitch(false);
+            }
 
-			Debug.Log("M: Mute Speaker " + muteSpeaker);
-		}
+            Debug.Log("M: Mute Speaker " + muteSpeaker);
+        }
 
-		if (Input.GetKeyDown(KeyCode.P))
-		{
-			if (powerOn)
-			{
-				powerOn = false;
-				lights.SetActive(false);
-				smartSpeaker.VoicePower(false);
-				viewScreen.GetComponent<ViewerControl>().Close();
-			}
-			else
-			{
-				powerOn = true;
-				lights.SetActive(true);
-				viewScreen.GetComponent<ViewerControl>().Open();
-				smartSpeaker.VoicePower(true);
-			}
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (powerOn)
+            {
+                powerOn = false;
+                lights.SetActive(false);
+                smartSpeaker.VoicePower(false);
+                viewScreen.GetComponent<ViewerControl>().Close();
+            }
+            else
+            {
+                powerOn = true;
+                lights.SetActive(true);
+                viewScreen.GetComponent<ViewerControl>().Open();
+                smartSpeaker.VoicePower(true);
+            }
 
-			Debug.Log("L: Lights " + lightsOn);
-		}
+            Debug.Log("L: Lights " + lightsOn);
+        }
 
-		if (Input.GetKeyDown(KeyCode.Slash) || Input.GetKeyDown(KeyCode.Question))
-		{
-			//smartSpeaker.VoiceDifficultyUnderstanding();
-			smartSpeaker.VoiceDontKnow();
-		}
-	}
+        if (Input.GetKeyDown(KeyCode.Slash) || Input.GetKeyDown(KeyCode.Question))
+        {
+            //smartSpeaker.VoiceDifficultyUnderstanding();
+            smartSpeaker.VoiceDontKnow();
+        }
+    }
 }
