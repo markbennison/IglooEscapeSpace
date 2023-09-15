@@ -1501,7 +1501,7 @@ MonoBehaviour:
   smartSpeaker: {fileID: 1461033096}
   oxygenCanister: {fileID: 1153534954}
   heartBeatAudio: {fileID: 483235830}
-  activityMinutes: 1
+  activityMinutes: 15
 --- !u!4 &483235829
 Transform:
   m_ObjectHideFlags: 0
@@ -6296,7 +6296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5572304764657040179, guid: cddd6be25d9fd1f43aa8eb0f29e01ac5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.673
       objectReference: {fileID: 0}
     - target: {fileID: 5572304764657040179, guid: cddd6be25d9fd1f43aa8eb0f29e01ac5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6308,7 +6308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5572304764657040179, guid: cddd6be25d9fd1f43aa8eb0f29e01ac5, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9961947
       objectReference: {fileID: 0}
     - target: {fileID: 5572304764657040179, guid: cddd6be25d9fd1f43aa8eb0f29e01ac5, type: 3}
       propertyPath: m_LocalRotation.x
@@ -6316,7 +6316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5572304764657040179, guid: cddd6be25d9fd1f43aa8eb0f29e01ac5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.08715578
       objectReference: {fileID: 0}
     - target: {fileID: 5572304764657040179, guid: cddd6be25d9fd1f43aa8eb0f29e01ac5, type: 3}
       propertyPath: m_LocalRotation.z
@@ -6328,7 +6328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5572304764657040179, guid: cddd6be25d9fd1f43aa8eb0f29e01ac5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 5572304764657040179, guid: cddd6be25d9fd1f43aa8eb0f29e01ac5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
